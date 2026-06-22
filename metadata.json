@@ -1,0 +1,6 @@
+{
+  "name": "WASM File Converter",
+  "description": "A client-side file converter utilizing WebAssembly and FFmpeg. Auto-cleans up memory after 1 hour.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
