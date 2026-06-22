@@ -1,9 +1,10 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { FileCode2, Image, FileText, Video, Music } from "lucide-react";
+import { FileCode2, Image, FileText, Video, Music, Cloud } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
   { name: "Image", path: "/image", icon: Image },
+  { name: "Cloud Image", path: "/image-server", icon: Cloud },
   { name: "Document", path: "/document", icon: FileText },
   { name: "Media", path: "/media", icon: Video },
   { name: "Audio", path: "/audio", icon: Music },
