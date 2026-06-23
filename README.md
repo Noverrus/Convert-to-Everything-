@@ -1,51 +1,39 @@
-# Enterprise File Converter Platform
+# Image Batch Converter Pro
 
-A full-stack, enterprise-grade file media converter. This application uses a decoupled microservices architecture designed to entirely bypass frontend server payload limits (such as Vercel constraints), ensuring highly robust scalability for processing files up to 1GB+.
+A high-performance file media converter built with React (Vite) and an Express fallback backend. This application uses a dual-engine architecture:
+1. **Local Browser Engine**: Heavy lifting is done on the client side using Web Workers and WebAssembly (WASM), processing standard images and formats like HEIC entirely locally to preserve privacy and reduce server costs.
+2. **Cloud Fallback Engine**: Advanced and uncommon formats (such as AVIF, EPS, DDS, DPX, PCX, PPM, DJV, WMZ, ART) trigger a fast proxy fallback that streams the file to the Express server for heavy-duty conversion using Node.js tools.
 
-![App Setup State](https://img.shields.io/badge/Architecture-Next.js%20%2B%20Supabase%20%2B%20Express-blue)
+![App Setup State](https://img.shields.io/badge/Architecture-React%20%2B%20Vite%20%2B%20Express-blue)
 
 ## Architecture Overview
 
-1. **Frontend (Next.js)**: Utilizes Supabase JS to stream large uploads *directly* into the cloud storage buckets, omitting any processing pressure from Next.js serverless functions.
-2. **Postgres Realtime (DB)**: Maintains state transitions via Row-Level instances watched live globally.
-3. **Task Worker Node (Express/Node.js)**: An independently scaled computing pipeline listening via Database Webhooks. Processes payloads heavily with `sharp` and pushes optimized conversions back, subsequently mutating the active Realtime states.
-4. **Autonomous GC**: Employs `pg_cron` extensions for rigorous 1-Hour memory flushing and payload sweeping.
+- **Frontend (React + Vite)**: Provides a drag-and-drop interface, managing a local queue of jobs via background Web Workers.
+- **Web Workers**: Enables true multithreaded processing, separating UI rendering from heavy image encoding/decoding.
+- **Express Backend (`server.ts`)**: Acts as an API proxy and fallback processing unit. Capable of processing image buffers with libraries like `sharp` for advanced format handling.
 
 ## Code Directory Flow
 
-- `/src/lib/supabase`: Primary database connection pool configurations.
-- `/src/app/image/page.tsx`: Advanced UI with zero limits directly tracking Postgres state chunks payload events.
-- `/worker-service`: Deploy this standard Express microservice on Render, Railway, or AWS to absorb the main computational costs.
+- `/src/pages/ImageConverter.tsx`: Advanced UI tracking conversion jobs.
+- `/src/workers/converter.worker.ts`: Web Worker script mapping standard processing and triggering cloud fallback for unsupported types.
+- `/server.ts`: Express backend handling cloud fallback proxying and custom format processing.
 
 ## Initial Setup & Initialization
 
-### Next.js Vercel Frontend
+### Environment Variables
+Configure your environment using the `.env.example` file. Avoid storing API secrets in client-side code directly unless necessary (use `VITE_` prefix only for public keys).
+
+### Run Local Environment
 ```bash
-# Instantiate framework (If building from scratch)
-npx create-next-app@latest file-converter-pro --typescript --tailwind --eslint
-
 # Sync platform dependencies
-npm install @supabase/supabase-js lucide-react clsx tailwind-merge
+npm install
 
-# Start local Next/Vite dev stream
+# Start local React/Vite dev stream (with Express proxy)
 npm run dev
 ```
 
-### Worker Service Layer
-```bash
-cd worker-service
+## Licensing
 
-# Ensure microservice runtime dependencies
-npm install
+**Copyright (c) 2026 Noverrus Dev. Hak Cipta Dilindungi Undang-Undang.**
 
-# Test Worker on :8080 manually
-npm run start
-```
-
-
-## Contribution
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes strictly conforming to Prettier styles (`.prettierrc.json`)
-4. Open a Pull Request
+Please see the `LICENSE` file for usage restrictions. Commercial use is strictly prohibited.

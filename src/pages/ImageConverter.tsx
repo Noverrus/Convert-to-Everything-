@@ -193,7 +193,7 @@ export function ImageConverter() {
       <div>
         <h2 className="text-3xl font-bold text-slate-800">Image Batch Converter</h2>
         <p className="text-slate-500 mt-1">
-          High-performance background rendering engine. Supports batching up to 1GB.
+          High-performance background rendering engine. Supports WASM local and Cloud fallback for advanced formats.
         </p>
       </div>
 

@@ -63,8 +63,8 @@ export function Layout() {
       {/* Footer */}
       <footer className="shrink-0 border-t py-6 text-center text-sm text-slate-500 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <p>Open Source WebAssembly File Converter.</p>
-          <p className="mt-1 text-slate-400">All conversions happen locally in your browser. No files are uploaded.</p>
+          <p>Copyright (c) 2026 Noverrus Dev. Hak Cipta Dilindungi Undang-Undang.</p>
+          <p className="mt-1 text-slate-400">Penggunaan komersial SANGAT DILARANG. Local WASM & Cloud fallback engine active.</p>
         </div>
       </footer>
     </div>

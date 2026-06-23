@@ -54,10 +54,10 @@ export function Home() {
       <section className="text-center pt-12 pb-8 px-4 sm:px-6 space-y-6 max-w-3xl mx-auto">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
           Uncompromised Privacy. <br className="hidden sm:block" />
-          <span className="text-indigo-600">Client-Side File Conversion.</span>
+          <span className="text-indigo-600">Dual-Engine File Conversion.</span>
         </h1>
         <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-          Convert images, videos, audio, and documents completely offline using WebAssembly. Your files never leave your device.
+          Convert standard files completely offline using WebAssembly, with an autonomous Cloud Fallback engine for advanced heavy-duty formats.
         </p>
       </section>
 
@@ -99,8 +99,8 @@ export function Home() {
           <div className="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center mb-4">
             <ShieldCheck className="h-6 w-6 text-slate-700" />
           </div>
-          <h4 className="font-bold text-slate-900">Total Privacy</h4>
-          <p className="text-sm text-slate-500 mt-2">Zero tracking, no uploads. Everything processes safely in your own browser's memory.</p>
+          <h4 className="font-bold text-slate-900">Privacy First</h4>
+          <p className="text-sm text-slate-500 mt-2">Standard formats process fully locally. Advanced formats use secure, temporary cloud streaming.</p>
         </div>
         <div className="flex flex-col items-center">
           <div className="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center mb-4">
