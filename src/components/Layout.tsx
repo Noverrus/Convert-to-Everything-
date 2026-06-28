@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { FileCode2, Image, FileText, Video, Archive, FileCode, BookOpen, Type, Presentation, FileSpreadsheet, Layers } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -17,23 +17,24 @@ const navLinks = [
 
 export function Layout() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-[#f5f5f0] text-black font-sans flex flex-col antialiased">
       {/* Navbar - Premium Neo-brutalist Design */}
       <header className="sticky top-0 z-40 w-full border-b-[3px] border-black bg-white shrink-0">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center space-x-6 w-full">
+          <div className="flex items-center justify-between space-x-4 w-full">
             <Link 
               to="/" 
-              className="flex items-center space-x-2 mr-4 font-display font-black text-sm sm:text-base uppercase tracking-wider bg-[#ffde43] border-2 border-black px-3 py-1.5 shadow-[2px_2px_0px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#000] transition-all shrink-0 active:scale-95"
+              className="flex items-center space-x-2 font-display font-black text-sm sm:text-base uppercase tracking-wider bg-[#ffde43] border-2 border-black px-3 py-1.5 shadow-[2px_2px_0px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#000] transition-all shrink-0 active:scale-95"
             >
               <FileCode2 className="h-5 w-5 stroke-[2.5]" />
               <span className="font-extrabold tracking-tight">WASM CONVERTER</span>
             </Link>
             
-            {/* Scrollable horizontal list on mobile, neat list on desktop */}
-            <nav className="flex items-center space-x-2 overflow-x-auto scrollbar-none py-2 flex-1 mask-linear">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-2 overflow-x-auto scrollbar-none py-2 flex-1 mask-linear">
               <Link 
                 to="/"
                 className={cn(
@@ -65,6 +66,23 @@ export function Layout() {
                 );
               })}
             </nav>
+
+            {/* Mobile/Tablet Dropdown Navigation */}
+            <div className="flex md:hidden items-center shrink-0">
+              <select
+                value={location.pathname === "/" ? "/" : "/" + location.pathname.split("/")[1]}
+                onChange={(e) => navigate(e.target.value)}
+                className="border-2 border-black rounded-lg px-2 py-1.5 text-xs font-mono font-black bg-[#ffde43] text-black shadow-[2.5px_2.5px_0px_0px_#000] focus-visible:ring-2 focus-visible:ring-black outline-none cursor-pointer"
+                aria-label="Navigate to another converter"
+              >
+                <option value="/">Dashboard</option>
+                {navLinks.map((link) => (
+                  <option key={link.path} value={link.path}>
+                    {link.name} Converter
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </header>

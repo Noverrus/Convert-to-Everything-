@@ -3,9 +3,38 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Upload, FileText, Download, Loader2, AlertCircle, Trash2, ShieldCheck, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import jsPDF from "jspdf";
+import JSZip from "jszip";
 import { useAutoDelete, formatTimeLeft } from "@/hooks/useAutoDelete";
 
-const SUPPORTED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'webp', 'txt'];
+const SUPPORTED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'webp', 'txt', 'docx', 'html', 'pdf'];
+
+const parseDocxToText = async (file: File): Promise<string> => {
+  try {
+    const zip = await JSZip.loadAsync(file);
+    const docXml = await zip.file("word/document.xml")?.async("text");
+    if (!docXml) return "No text found in DOCX file.";
+    
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(docXml, "application/xml");
+    const paragraphs = xmlDoc.getElementsByTagName("w:p");
+    let text = "";
+    for (let i = 0; i < paragraphs.length; i++) {
+      const p = paragraphs[i];
+      const texts = p.getElementsByTagName("w:t");
+      let pText = "";
+      for (let j = 0; j < texts.length; j++) {
+        pText += texts[j].textContent || "";
+      }
+      if (pText) {
+        text += pText + "\n";
+      }
+    }
+    return text || "No text extracted from DOCX.";
+  } catch (err) {
+    console.error("Docx parsing error", err);
+    return "Failed to parse DOCX content.";
+  }
+};
 
 interface DocJob {
   id: string;
@@ -163,8 +192,6 @@ export function DocumentConverter() {
           const pdfWidth = pdf.internal.pageSize.getWidth();
           const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
           
-          // Check if it fits on the page height-wise, and center or scale appropriately
-          // Let's just scale to maximum width for simplicity
           pdf.addImage(imgData, ext === 'png' ? 'PNG' : 'JPEG', 0, 0, pdfWidth, pdfHeight);
           isFirstPage = false;
         } else if (ext === 'txt') {
@@ -177,6 +204,43 @@ export function DocumentConverter() {
           const splitText = pdf.splitTextToSize(text, pdf.internal.pageSize.getWidth() - 20);
           pdf.text(splitText, 10, 10);
           isFirstPage = false;
+        } else if (ext === 'html') {
+          const rawHtml = await readFileAsText(file);
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(rawHtml, "text/html");
+          const text = htmlDoc.body.textContent || htmlDoc.documentElement.textContent || "";
+          if (!isFirstPage) {
+            pdf.addPage();
+          }
+
+          pdf.setFontSize(12);
+          const splitText = pdf.splitTextToSize(text, pdf.internal.pageSize.getWidth() - 20);
+          pdf.text(splitText, 10, 10);
+          isFirstPage = false;
+        } else if (ext === 'docx') {
+          const text = await parseDocxToText(file);
+          if (!isFirstPage) {
+            pdf.addPage();
+          }
+
+          pdf.setFontSize(12);
+          const splitText = pdf.splitTextToSize(text, pdf.internal.pageSize.getWidth() - 20);
+          pdf.text(splitText, 10, 10);
+          isFirstPage = false;
+        } else if (ext === 'pdf') {
+          if (job.files.length === 1) {
+            const pdfBlob = file;
+            const outputUrl = URL.createObjectURL(pdfBlob);
+            setJobs(prev => prev.map(j => j.id === id ? { ...j, status: 'done', progress: 100, outputUrl } : j));
+            return;
+          } else {
+            if (!isFirstPage) {
+              pdf.addPage();
+            }
+            pdf.setFontSize(12);
+            pdf.text(`[Attached PDF Document: ${file.name}]`, 10, 10);
+            isFirstPage = false;
+          }
         }
       }
 

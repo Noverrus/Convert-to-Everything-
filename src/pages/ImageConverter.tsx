@@ -174,6 +174,11 @@ export function ImageConverter() {
     setJobs(prev => prev.map(job => job.id === id ? { ...job, targetFormat: format } : job));
   };
 
+  const handleApplyFormatToAll = (format: string) => {
+    setSelectedTargetFormat(format);
+    setJobs(prev => prev.map(job => job.status === 'idle' ? { ...job, targetFormat: format } : job));
+  };
+
   const handleRemove = (id: string) => {
     setJobs(prev => {
       const job = prev.find(j => j.id === id);
@@ -382,14 +387,45 @@ export function ImageConverter() {
       {/* Jobs Queue */}
       {jobs.length > 0 && (
         <div className="bg-white rounded-xl border-3 border-black shadow-[4px_4px_0px_0px_#000] overflow-hidden">
-          <div className="bg-[#f5f5f0] px-6 py-4 border-b-3 border-black flex flex-col sm:flex-row justify-between items-center gap-3">
-             <h3 className="font-display font-black text-sm uppercase tracking-wider text-black">Conversion Queue ({jobs.length})</h3>
-             <div className="flex items-center gap-4">
+          <div className="bg-[#f5f5f0] px-6 py-4 border-b-3 border-black flex flex-col lg:flex-row justify-between items-center gap-4">
+             <h3 className="font-display font-black text-sm uppercase tracking-wider text-black shrink-0">Conversion Queue ({jobs.length})</h3>
+             <div className="flex flex-wrap items-center gap-2 sm:gap-3 justify-end w-full lg:w-auto">
+               {/* Global Target Format Apply Dropdown */}
+               {jobs.some(j => j.status === 'idle') && (
+                 <div className="flex items-center gap-1.5 bg-white border-2 border-black rounded-lg px-2.5 py-1 shadow-[2px_2px_0px_0px_#000]">
+                   <span className="text-[10px] font-mono font-bold uppercase text-slate-500">To All:</span>
+                   <select 
+                     onChange={(e) => handleApplyFormatToAll(e.target.value)}
+                     className="text-xs font-mono font-extrabold bg-transparent border-0 focus-visible:ring-2 focus-visible:ring-black outline-none cursor-pointer"
+                     defaultValue=""
+                     aria-label="Apply target format to all idle items"
+                   >
+                     <option value="" disabled>Select Format</option>
+                     <option value="webp">WEBP</option>
+                     <option value="png">PNG</option>
+                     <option value="jpg">JPG</option>
+                     <option value="gif">GIF</option>
+                   </select>
+                 </div>
+               )}
+
+               {/* Convert All Button */}
+               {jobs.some(j => j.status === 'idle') && (
+                 <button 
+                   onClick={() => setJobs(prev => prev.map(j => j.status === 'idle' ? { ...j, status: 'queued' } : j))}
+                   className="text-xs font-display font-black uppercase tracking-wider text-black bg-[#ffde43] hover:bg-[#ffd100] border-2 border-black px-3 py-1.5 rounded-lg shadow-[2px_2px_0px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3.5px_3.5px_0px_0px_#000] transition-all cursor-pointer flex items-center active:scale-95 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-none"
+                   aria-label="Convert all files in queue"
+                 >
+                   Convert All
+                 </button>
+               )}
+
                {jobs.filter(j => j.status === 'done').length > 1 && (
                  <button 
                    onClick={handleDownloadAllZip} 
                    disabled={isZipping}
-                   className="text-xs font-display font-black uppercase tracking-wider text-black bg-[#a3e635] hover:bg-[#86efac] border-2 border-black px-3 py-1.5 rounded-lg shadow-[2px_2px_0px_0px_#000] transition-all disabled:opacity-50 cursor-pointer flex items-center"
+                   className="text-xs font-display font-black uppercase tracking-wider text-black bg-[#a3e635] hover:bg-[#86efac] border-2 border-black px-3 py-1.5 rounded-lg shadow-[2px_2px_0px_0px_#000] transition-all disabled:opacity-50 cursor-pointer flex items-center focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-none"
+                   aria-label="Download all completed conversions as ZIP"
                  >
                    {isZipping ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <Archive className="w-4 h-4 mr-1.5 stroke-[2.5]" />}
                    {isZipping ? "Zipping..." : "Download ZIP"}
@@ -397,7 +433,8 @@ export function ImageConverter() {
                )}
                <button 
                  onClick={handleClearAll} 
-                 className="text-xs font-display font-black uppercase tracking-wider text-[#ff5a5f] bg-red-50 hover:bg-red-100 border-2 border-black px-3 py-1.5 rounded-lg shadow-[2px_2px_0px_0px_#000] transition-all cursor-pointer flex items-center font-bold"
+                 className="text-xs font-display font-black uppercase tracking-wider text-[#ff5a5f] bg-red-50 hover:bg-red-100 border-2 border-black px-3 py-1.5 rounded-lg shadow-[2px_2px_0px_0px_#000] transition-all cursor-pointer flex items-center font-bold focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-none"
+                 aria-label="Clear all files in queue"
                >
                   <Trash2 className="w-4 h-4 mr-1 stroke-[2.5]"/> Clear All
                </button>
@@ -422,7 +459,8 @@ export function ImageConverter() {
                        <select 
                          value={job.targetFormat}
                          onChange={(e) => handleFormatChange(job.id, e.target.value)}
-                         className="border-2 border-black rounded-lg px-3 py-1.5 text-xs font-mono font-bold bg-white focus:outline-none focus:ring-0"
+                         className="border-2 border-black rounded-lg px-3 py-1.5 text-xs font-mono font-bold bg-white focus-visible:ring-2 focus-visible:ring-black outline-none"
+                         aria-label={`Select target format for ${job.file.name}`}
                        >
                          <option value="webp">to WEBP</option>
                          <option value="png">to PNG</option>
@@ -431,7 +469,8 @@ export function ImageConverter() {
                        </select>
                        <button
                          onClick={() => setJobs(prev => prev.map(j => j.id === job.id ? { ...j, status: 'queued' } : j))}
-                         className="bg-[#ffde43] hover:bg-[#ffd100] border-2 border-black text-black font-display font-black uppercase text-xs px-4 py-1.5 rounded-lg shadow-[2px_2px_0px_0px_#000] active:scale-95 cursor-pointer"
+                         className="bg-[#ffde43] hover:bg-[#ffd100] border-2 border-black text-black font-display font-black uppercase text-xs px-4 py-1.5 rounded-lg shadow-[2px_2px_0px_0px_#000] active:scale-95 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-none cursor-pointer"
+                         aria-label={`Convert ${job.file.name}`}
                        >
                          Convert
                        </button>
@@ -463,7 +502,8 @@ export function ImageConverter() {
                      <a 
                        href={job.outputUrl}
                        download={`converted_${job.file.name.split('.')[0]}.${job.targetFormat}`}
-                       className="inline-flex items-center justify-center px-4 py-1.5 bg-[#a3e635] hover:bg-[#86efac] text-black text-xs font-display font-black uppercase tracking-wide border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000] active:scale-95"
+                       className="inline-flex items-center justify-center px-4 py-1.5 bg-[#a3e635] hover:bg-[#86efac] text-black text-xs font-display font-black uppercase tracking-wide border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000] active:scale-95 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-none"
+                       aria-label={`Save converted ${job.file.name}`}
                      >
                        <Download className="w-4 h-4 mr-1.5 stroke-[2.5]" />
                        Save
@@ -472,7 +512,8 @@ export function ImageConverter() {
 
                    <button 
                      onClick={() => handleRemove(job.id)}
-                     className="p-1.5 text-slate-400 hover:text-[#ff5a5f] border-2 border-transparent hover:border-black hover:bg-red-50 rounded-lg transition-colors ml-2 cursor-pointer"
+                     className="p-1.5 text-slate-400 hover:text-[#ff5a5f] border-2 border-transparent hover:border-black hover:bg-red-50 rounded-lg transition-colors ml-2 cursor-pointer focus-visible:ring-2 focus-visible:ring-black outline-none"
+                     aria-label={`Remove ${job.file.name} from queue`}
                    >
                      <Trash2 className="w-4 h-4 stroke-[2.5]" />
                    </button>
