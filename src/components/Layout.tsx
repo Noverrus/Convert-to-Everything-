@@ -1,34 +1,41 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { FileCode2, Image, FileText, Video, Music, Cloud } from "lucide-react";
+import { FileCode2, Image, FileText, Video, Archive, FileCode, BookOpen, Type, Presentation, FileSpreadsheet, Layers } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
   { name: "Image", path: "/image", icon: Image },
-  { name: "Cloud Image", path: "/image-server", icon: Cloud },
   { name: "Document", path: "/document", icon: FileText },
-  { name: "Media", path: "/media", icon: Video },
-  { name: "Audio", path: "/audio", icon: Music },
+  { name: "Video", path: "/video", icon: Video },
+  { name: "Archive", path: "/archive", icon: Archive },
+  { name: "CAD", path: "/cad", icon: FileCode },
+  { name: "Ebook", path: "/ebook", icon: BookOpen },
+  { name: "Font", path: "/font", icon: Type },
+  { name: "Presentation", path: "/presentation", icon: Presentation },
+  { name: "Spreadsheet", path: "/spreadsheet", icon: FileSpreadsheet },
+  { name: "Vector", path: "/vector", icon: Layers },
 ];
 
 export function Layout() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col">
-      {/* Navbar */}
-      <header className="sticky top-0 z-40 w-full border-b backdrop-blur bg-white/80 shrink-0">
-        <div className="mx-auto flex h-16 max-w-7xl items-centerjustify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center space-x-6">
-            <Link to="/" className="flex items-center space-x-2 mr-6 text-indigo-600">
-              <FileCode2 className="h-6 w-6 relative" />
-              <span className="font-bold hidden sm:inline-block">WASM Converter</span>
+    <div className="min-h-screen bg-[#fafafa] text-slate-900 font-sans flex flex-col antialiased">
+      {/* Navbar - Pure Flat Design */}
+      <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white shrink-0">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center space-x-6 w-full">
+            <Link to="/" className="flex items-center space-x-2 mr-4 text-indigo-600 shrink-0">
+              <FileCode2 className="h-6 w-6" />
+              <span className="font-bold tracking-tight text-slate-900">WASM Converter</span>
             </Link>
-            <nav className="flex space-x-1 sm:space-x-4 flex-1">
+            
+            {/* Scrollable horizontal list on mobile, neat list on desktop */}
+            <nav className="flex items-center space-x-1 overflow-x-auto scrollbar-none py-1 flex-1 mask-linear">
               <Link 
                 to="/"
                 className={cn(
-                  "hidden sm:flex text-sm font-medium transition-colors hover:text-primary",
-                  location.pathname === "/" ? "text-indigo-600" : "text-slate-600"
+                  "text-xs sm:text-sm font-medium px-3 py-2 rounded-lg transition-all shrink-0 hover:bg-slate-100",
+                  location.pathname === "/" ? "bg-slate-100 text-indigo-600 font-semibold" : "text-slate-600"
                 )}
               >
                 Dashboard
@@ -41,12 +48,12 @@ export function Layout() {
                     key={link.path}
                     to={link.path}
                     className={cn(
-                      "flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-slate-100",
-                      isActive ? "bg-indigo-50 text-indigo-700" : "text-slate-600"
+                      "flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all shrink-0 hover:bg-slate-100",
+                      isActive ? "bg-indigo-600 text-white font-semibold" : "text-slate-600"
                     )}
                   >
                     <Icon className="h-4 w-4" />
-                    <span className="hidden sm:inline-block">{link.name}</span>
+                    <span>{link.name}</span>
                   </Link>
                 );
               })}
@@ -60,11 +67,11 @@ export function Layout() {
         <Outlet />
       </main>
 
-      {/* Footer */}
-      <footer className="shrink-0 border-t py-6 text-center text-sm text-slate-500 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <p>Copyright (c) 2026 Noverrus Dev. Hak Cipta Dilindungi Undang-Undang.</p>
-          <p className="mt-1 text-slate-400">Penggunaan komersial SANGAT DILARANG. 100% Client-Side Pure WASM Engine.</p>
+      {/* Footer - Flat minimalist design */}
+      <footer className="shrink-0 border-t border-slate-200 py-8 text-center text-xs text-slate-500 bg-white">
+        <div className="max-w-7xl mx-auto px-4 space-y-2">
+          <p className="font-medium text-slate-600">Pure Client-Side WebAssembly File Processing Suite</p>
+          <p className="text-slate-400">Copyright (c) 2026 Noverrus Dev. Hak Cipta Dilindungi Undang-Undang.</p>
         </div>
       </footer>
     </div>

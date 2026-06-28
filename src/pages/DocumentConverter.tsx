@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Upload, FileText, Download, Loader2, AlertCircle, Trash2, ShieldCheck, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import jsPDF from "jspdf";

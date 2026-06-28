@@ -19,7 +19,7 @@ interface MediaJob {
   error?: string;
 }
 
-export function MediaConverter() {
+export function VideoConverter() {
   const [jobs, setJobs] = useState<MediaJob[]>([]);
   const ffmpegRef = useRef<FFmpeg | null>(null);
   const [loaded, setLoaded] = useState(false);
@@ -230,7 +230,7 @@ export function MediaConverter() {
       
       const link = document.createElement('a');
       link.href = zipUrl;
-      link.download = `Media_${Date.now()}.zip`;
+      link.download = `Video_${Date.now()}.zip`;
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -257,7 +257,7 @@ export function MediaConverter() {
       )}
 
       <div>
-        <h2 className="text-3xl font-bold text-slate-800">Media Batch Converter</h2>
+        <h2 className="text-3xl font-bold text-slate-800">Video & Audio Batch Converter</h2>
         <p className="text-slate-500 mt-1">
           Convert videos and audio offline using WebAssembly. Files process sequentially to protect memory.
         </p>
@@ -296,7 +296,7 @@ export function MediaConverter() {
         <div className="h-16 w-16 bg-slate-100 rounded-full flex items-center justify-center mb-4 transition-transform group-hover:scale-110">
           <Upload className="h-8 w-8 text-slate-500" />
         </div>
-        <p className="font-semibold text-slate-800">Drag & Drop media files</p>
+        <p className="font-semibold text-slate-800">Drag & Drop video or audio files</p>
         <p className="text-sm text-slate-500 mt-1">Accepts MP4, WEBM, AVI, MP3, WAV and more.</p>
         {loadingMsg && <p className="text-xs text-indigo-500 mt-2 flex items-center"><Loader2 className="w-3 h-3 mr-1 animate-spin"/> {loadingMsg}</p>}
       </div>
@@ -304,7 +304,7 @@ export function MediaConverter() {
       {jobs.length > 0 && (
         <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
            <div className="bg-slate-50 px-6 py-4 border-b flex justify-between items-center">
-             <h3 className="font-semibold text-slate-700">Media Queue ({jobs.length})</h3>
+             <h3 className="font-semibold text-slate-700">Video Queue ({jobs.length})</h3>
              <div className="flex items-center gap-4">
                {jobs.filter(j => j.status === 'done').length > 1 && (
                  <button 
