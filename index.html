@@ -3,11 +3,457 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <title>Convert To Everything | Secure Offline-First WASM File Converter</title>
+    <meta name="description" content="Convert images, documents, videos, archives, spreadsheets, vector CAD blueprints, and ebooks 100% offline and secure inside your browser using WebAssembly. No server uploads." />
+    <meta name="keywords" content="WASM, file converter, WebAssembly, offline converter, PDF, JPG, WEBP, MP4, ZIP, CAD, DXF, EPUB, CSV, privacy-first" />
+    <meta name="author" content="Convert To Everything Corp" />
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Convert To Everything | Secure Offline-First WASM File Converter" />
+    <meta property="og:description" content="100% offline browser-side conversion suite. High-speed WebAssembly document, image, audio, video, ebook, and archive manager." />
+    <meta property="og:type" content="website" />
+    
+    <!-- Inline design matching Neo-brutalist style for instant render & audit approval -->
+    <style>
+      :root {
+        --bg-color: #f5f5f0;
+        --border-color: #000000;
+        --accent-yellow: #ffde43;
+        --accent-pink: #ff90e8;
+        --accent-blue: #38bdf8;
+        --accent-lime: #a3e635;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background-color: var(--bg-color);
+        color: #000000;
+      }
+      .fallback-layout {
+        min-height: 100-vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .fallback-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: #ffffff;
+        border-bottom: 3px solid var(--border-color);
+        padding: 1rem;
+      }
+      .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .brand-badge {
+        background-color: var(--accent-yellow);
+        border: 2px solid var(--border-color);
+        padding: 0.5rem 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        text-decoration: none;
+        color: #000000;
+        box-shadow: 2px 2px 0px 0px var(--border-color);
+      }
+      .nav-links {
+        display: flex;
+        gap: 0.75rem;
+      }
+      .nav-link-btn {
+        background-color: #ffffff;
+        border: 2px solid var(--border-color);
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #000000;
+        border-radius: 4px;
+        transition: all 0.1s ease;
+      }
+      .fallback-main {
+        flex: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .hero-section {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+      .promo-badge {
+        display: inline-block;
+        background-color: var(--accent-pink);
+        border: 3px solid var(--border-color);
+        padding: 0.4rem 1rem;
+        font-size: 0.75rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        box-shadow: 3px 3px 0px 0px var(--border-color);
+        border-radius: 9999px;
+        margin-bottom: 1.5rem;
+      }
+      .hero-title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin: 0 0 1rem 0;
+        line-height: 1.1;
+      }
+      .hero-description {
+        max-width: 600px;
+        margin: 0 auto 2rem auto;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #334155;
+        line-height: 1.5;
+      }
+      .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .btn-primary {
+        background-color: var(--accent-lime);
+        border: 3px solid var(--border-color);
+        padding: 0.8rem 1.8rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #000000;
+        border-radius: 8px;
+        box-shadow: 4px 4px 0px 0px var(--border-color);
+        font-size: 0.875rem;
+      }
+      .btn-secondary {
+        background-color: #ffffff;
+        border: 3px solid var(--border-color);
+        padding: 0.8rem 1.8rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #000000;
+        border-radius: 8px;
+        box-shadow: 4px 4px 0px 0px var(--border-color);
+        font-size: 0.875rem;
+      }
+      .upload-container {
+        background-color: #161a24;
+        border: 4px solid var(--border-color);
+        border-radius: 16px;
+        padding: 2rem;
+        color: #ffffff;
+        max-width: 800px;
+        margin: 0 auto 3rem auto;
+        box-shadow: 8px 8px 0px 0px var(--border-color);
+        text-align: center;
+      }
+      .upload-title {
+        font-size: 1.25rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+      .upload-subtitle {
+        font-size: 0.75rem;
+        color: #94a3b8;
+        margin-bottom: 1.5rem;
+      }
+      .fallback-dropzone {
+        background-color: #ffffff;
+        border: 3px dashed var(--border-color);
+        border-radius: 12px;
+        padding: 2.5rem;
+        color: #000000;
+        max-width: 500px;
+        margin: 0 auto;
+        box-shadow: 4px 4px 0px 0px var(--border-color);
+      }
+      .dropzone-title {
+        font-size: 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin: 0 0 0.5rem 0;
+      }
+      .dropzone-desc {
+        font-size: 0.75rem;
+        color: #475569;
+        margin-bottom: 1.25rem;
+      }
+      .select-files-btn {
+        background-color: #ff5a5f;
+        color: #000000;
+        border: 2px solid var(--border-color);
+        padding: 0.6rem 1.2rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        box-shadow: 3px 3px 0px 0px var(--border-color);
+        cursor: pointer;
+      }
+      .loading-indicator {
+        margin-top: 1.5rem;
+        font-weight: 700;
+        font-size: 0.75rem;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .spinner {
+        border: 2px solid #334155;
+        border-top: 2px solid #ffffff;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+      .feature-card {
+        background-color: #ffffff;
+        border: 3px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 4px 4px 0px 0px var(--border-color);
+      }
+      .feature-icon-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        box-shadow: 2px 2px 0px 0px var(--border-color);
+      }
+      .feature-title {
+        font-size: 0.875rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin: 0 0 0.5rem 0;
+      }
+      .feature-desc {
+        font-size: 0.75rem;
+        color: #475569;
+        margin: 0;
+        line-height: 1.4;
+      }
+      .fallback-footer {
+        background-color: #ffffff;
+        border-top: 3px solid var(--border-color);
+        padding: 2.5rem 1rem;
+        font-size: 0.75rem;
+      }
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 1.5rem;
+      }
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        color: #475569;
+        font-weight: 600;
+      }
+      .footer-brand {
+        display: inline-block;
+        background-color: var(--accent-pink);
+        border: 2px solid var(--border-color);
+        padding: 0.25rem 0.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        box-shadow: 2px 2px 0px 0px var(--border-color);
+        text-decoration: none;
+        color: #000000;
+      }
+      .footer-links {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .footer-link {
+        text-decoration: none;
+        color: #000000;
+        font-weight: 700;
+        font-size: 0.75rem;
+      }
+      .footer-link:hover {
+        text-decoration: underline;
+      }
+      .secure-badge {
+        background-color: var(--accent-lime);
+        border: 2px solid var(--border-color);
+        padding: 0.2rem 0.6rem;
+        font-size: 0.65rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        box-shadow: 1.5px 1.5px 0px 0px var(--border-color);
+      }
+      @media (max-width: 640px) {
+        .hero-title {
+          font-size: 1.75rem;
+        }
+        .header-container {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+        .footer-top {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- High-fidelity static semantic layout inside root serves as the perfect fallback/skeleton loading template -->
+      <div class="fallback-layout" role="none">
+        
+        <!-- Header Landmark -->
+        <header class="fallback-header" role="banner">
+          <div class="header-container">
+            <a href="/" class="brand-badge" aria-label="Convert To Everything homepage">WASM CONVERTER</a>
+            <nav class="nav-links" aria-label="Primary fallback navigation">
+              <a href="/" class="nav-link-btn">Dashboard</a>
+              <a href="/image-converter" class="nav-link-btn">Image</a>
+              <a href="/document-converter" class="nav-link-btn">Document</a>
+              <a href="/video-converter" class="nav-link-btn">Video</a>
+            </nav>
+          </div>
+        </header>
+
+        <!-- Main Content Landmark -->
+        <main class="fallback-main" role="main">
+          
+          <!-- Hero Section Header -->
+          <section class="hero-section" aria-label="Introduction and action calls">
+            <div class="promo-badge">⚡ 200+ File Formats Supported</div>
+            <h1 class="hero-title">CONVERT<br />ALMOST ANYTHING.</h1>
+            <p class="hero-description">
+              Secure, offline-first digital compilation suite. Process documents, images, video, audio, archives, ebooks and more inside your browser safely.
+            </p>
+            <div class="cta-buttons">
+              <a href="#upload-top" class="btn-primary">Get Started Now</a>
+              <a href="#features-top" class="btn-secondary">Explore Features</a>
+            </div>
+          </section>
+
+          <!-- Interactive File Upload Sandbox Area Mock -->
+          <section id="upload-top" class="upload-container" aria-label="File upload section">
+            <h2 class="upload-title">Secure Browser File Upload</h2>
+            <p class="upload-subtitle">Configure your custom conversion flow and upload documents without any cloud risk.</p>
+            
+            <div class="fallback-dropzone">
+              <h3 class="dropzone-title">Drop your files here</h3>
+              <p class="dropzone-desc">or choose files from your local device to convert offline.</p>
+              <button class="select-files-btn" type="button" aria-haspopup="dialog">Select Files</button>
+            </div>
+
+            <div class="loading-indicator">
+              <div class="spinner" role="progressbar"></div>
+              <span>Preparing offline secure compiler sandbox...</span>
+            </div>
+          </section>
+
+          <!-- Core Value Props section -->
+          <section id="features-top" class="features-grid" aria-label="Platform advantages">
+            
+            <div class="feature-card">
+              <div class="feature-icon-badge" style="background-color: var(--accent-lime)">⚡</div>
+              <h3 class="feature-title">Fast Processing</h3>
+              <p class="feature-desc">Leverage modern WebAssembly and native web workers to compile files in parallel with low latency.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon-badge" style="background-color: var(--accent-blue)">🔒</div>
+              <h3 class="feature-title">100% Secure</h3>
+              <p class="feature-desc">All conversions run offline in sandbox memory. Your data never leaves your device, avoiding third-party server risks.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon-badge" style="background-color: var(--accent-pink)">🎯</div>
+              <h3 class="feature-title">High Quality</h3>
+              <p class="feature-desc">Preserve pixel dimensions, typography vectors, structural margins, and bit rate levels cleanly.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon-badge" style="background-color: var(--accent-yellow)">🌍</div>
+              <h3 class="feature-title">Cross Platform</h3>
+              <p class="feature-desc">Completely responsive and optimized to run on all screen sizes, including desktop viewports and mobile devices.</p>
+            </div>
+
+          </section>
+
+        </main>
+
+        <!-- Footer Landmark -->
+        <footer class="fallback-footer" role="contentinfo">
+          <div class="footer-container">
+            <div class="footer-top">
+              <div>
+                <a href="/" class="footer-brand">CONVERT TO EVERYTHING</a>
+                <p style="color: #475569; max-width: 350px; font-weight: 500; margin-top: 0.5rem; margin-bottom: 0;">
+                  A premium, client-side, offline-first digital compilation workspace. Secure client sandbox processing with 0% data egress.
+                </p>
+              </div>
+              <div class="footer-links">
+                <a href="/" class="footer-link">Dashboard</a>
+                <a href="#privacy" class="footer-link">Privacy</a>
+                <a href="#terms" class="footer-link">Terms</a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              <span>&copy; 2026 Convert To Everything. Crafted with local-first WebAssembly technology.</span>
+              <div class="secure-badge">Secure Client Sandbox</div>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
