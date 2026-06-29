@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Upload, FileText, Download, Loader2, AlertCircle, Trash2, ShieldCheck, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Upload, FileText, Download, Loader2, AlertCircle, Trash2, ShieldCheck, X, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import jsPDF from "jspdf";
 
@@ -51,28 +52,6 @@ export function EbookConverter() {
 
         if (job.targetFormat === 'epub') {
           // Dynamic minimal EPUB packaging client-side!
-          // We wrap the plain text inside the standard EPUB zip format or structure as a single html epub file
-          const containerXml = `<?xml version="1.0" encoding="UTF-8"?>
-<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
-  <rootfiles>
-    <rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/>
-  </rootfiles>
-</container>`;
-
-          const contentOpf = `<?xml version="1.0" encoding="UTF-8"?>
-<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookID" version="2.0">
-  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <dc:title>${job.file.name.split('.')[0]}</dc:title>
-    <dc:language>en</dc:language>
-  </metadata>
-  <manifest>
-    <item id="chapter1" href="chapter1.xhtml" media-type="application/xhtml+xml"/>
-  </manifest>
-  <spine toc="ncx">
-    <itemref idref="chapter1"/>
-  </spine>
-</package>`;
-
           const chapterXhtml = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -85,8 +64,6 @@ export function EbookConverter() {
 </body>
 </html>`;
 
-          // Since we need to output standard EPUB, we package it or export it cleanly
-          // Using a simple HTML/EPUB package format which reading engines accept
           const rawEpub = chapterXhtml;
           blob = new Blob([rawEpub], { type: 'application/epub+zip' });
         } else if (job.targetFormat === 'pdf') {
@@ -223,15 +200,27 @@ export function EbookConverter() {
                    )}
 
                    {job.status === 'done' && job.outputUrl && (
-                     <a 
-                       href={job.outputUrl}
-                       download={`${job.file.name.split('.')[0]}.${job.targetFormat}`}
-                       className="inline-flex items-center justify-center px-4 py-1.5 bg-[#a3e635] hover:bg-[#86efac] text-black text-xs font-display font-black uppercase tracking-wide border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000] active:scale-95 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-none"
-                       aria-label={`Save converted ebook for ${job.file.name}`}
-                     >
-                       <Download className="w-4 h-4 mr-1.5 stroke-[2.5]" />
-                       Save Ebook
-                     </a>
+                     <div className="flex items-center gap-2">
+                       {job.targetFormat === "pdf" && (
+                         <Link
+                           to="/pdf-viewer"
+                           state={{ pdfUrl: job.outputUrl, fileName: `${job.file.name.split('.')[0]}.pdf` }}
+                           className="inline-flex items-center justify-center px-4 py-1.5 bg-[#ffde43] hover:bg-[#ffd100] text-black text-xs font-display font-black uppercase tracking-wide border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000] active:scale-95"
+                         >
+                           <Eye className="w-4 h-4 mr-1.5 stroke-[2.5]" />
+                           Preview
+                         </Link>
+                       )}
+                       <a 
+                         href={job.outputUrl}
+                         download={`${job.file.name.split('.')[0]}.${job.targetFormat}`}
+                         className="inline-flex items-center justify-center px-4 py-1.5 bg-[#a3e635] hover:bg-[#86efac] text-black text-xs font-display font-black uppercase tracking-wide border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000] active:scale-95 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-none"
+                         aria-label={`Save converted ebook for ${job.file.name}`}
+                       >
+                         <Download className="w-4 h-4 mr-1.5 stroke-[2.5]" />
+                         Save Ebook
+                       </a>
+                     </div>
                    )}
 
                    <button 

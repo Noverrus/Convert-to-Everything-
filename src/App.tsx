@@ -9,6 +9,7 @@ import { Home } from "@/pages/Home";
 import { VideoConverter } from "@/pages/VideoConverter";
 import { ImageConverter } from "@/pages/ImageConverter";
 import { DocumentConverter } from "@/pages/DocumentConverter";
+import { DocumentViewer } from "@/pages/DocumentViewer";
 import { ArchiveConverter } from "@/pages/ArchiveConverter";
 import { CadConverter } from "@/pages/CadConverter";
 import { EbookConverter } from "@/pages/EbookConverter";
@@ -31,6 +32,8 @@ export default function App() {
           <Route path="document" element={<DocumentConverter />} />
           <Route path="document-converter" element={<DocumentConverter />} />
           <Route path="document-converter/:format" element={<DocumentConverter />} />
+          <Route path="document-viewer" element={<DocumentViewer />} />
+          <Route path="pdf-viewer" element={<DocumentViewer />} />
           
           <Route path="video" element={<VideoConverter />} />
           <Route path="video-converter" element={<VideoConverter />} />

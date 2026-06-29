@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { FileCode2, Image, FileText, Video, Archive, FileCode, BookOpen, Type, Presentation, FileSpreadsheet, Layers } from "lucide-react";
+import { FileCode2, Image, FileText, Video, Archive, FileCode, BookOpen, Type, Presentation, FileSpreadsheet, Layers, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -13,6 +13,7 @@ const navLinks = [
   { name: "Presentation", path: "/presentation-converter", icon: Presentation },
   { name: "Spreadsheet", path: "/spreadsheet-converter", icon: FileSpreadsheet },
   { name: "Vector", path: "/vector-converter", icon: Layers },
+  { name: "PDF Viewer", path: "/pdf-viewer", icon: Eye },
 ];
 
 export function Layout() {

@@ -4,7 +4,7 @@ import {
   Image, FileText, Video, Archive, FileCode, BookOpen, Type, 
   Presentation, FileSpreadsheet, Layers, ArrowRight, ShieldCheck, 
   Zap, HardDrive, ChevronDown, ChevronUp, HelpCircle, Search, 
-  RefreshCw, File, UploadCloud, X 
+  RefreshCw, File, UploadCloud, X, Eye 
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -106,6 +106,16 @@ const tools = [
     href: "/vector-converter",
     borderColor: "border-black",
     bgColor: "bg-[#60a5fa]", // Blue
+    textColor: "text-black",
+    shadowColor: "shadow-[5px_5px_0px_0px_#000]",
+  },
+  {
+    name: "Interactive PDF & Doc Viewer",
+    description: "View PDFs and other documents with interactive sidebar outline, zoom, and print.",
+    icon: Eye,
+    href: "/pdf-viewer",
+    borderColor: "border-black",
+    bgColor: "bg-[#2dd4bf]", // Teal
     textColor: "text-black",
     shadowColor: "shadow-[5px_5px_0px_0px_#000]",
   },
@@ -238,6 +248,17 @@ const formatData = [
     ],
     details: "Supports multiplier scaling up to 4x base size to ensure SVG typography curves and logos remain crisp when exported to raster formats.",
     accentColor: "bg-[#60a5fa] text-black border-black",
+  },
+  {
+    id: "pdf-viewer",
+    name: "Interactive PDF & Doc Viewer",
+    icon: Eye,
+    description: "View, zoom, navigate, and print any PDF document locally in your browser.",
+    subFlows: [
+      { from: "PDF Document File", to: "Interactive Reader Canvas", details: "Renders multi-page PDF documents locally onto a canvas using PDF.js. Includes interactive sidebar with thumbnails and table of contents." }
+    ],
+    details: "A perfect alternative to native PDF readers. Built entirely in client-side React with full layout matching and advanced controls.",
+    accentColor: "bg-[#2dd4bf] text-black border-black",
   },
 ];
 
