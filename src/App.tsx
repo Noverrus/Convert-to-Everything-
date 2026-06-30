@@ -9,6 +9,7 @@ import {
   ShieldCheck, Zap, Download, RefreshCw, Plus, Trash2, Play, Pause, 
   Camera, Mic, Square, Copy, Check, Search, HelpCircle, ArrowRight
 } from 'lucide-react';
+import { RoughIllustration } from './components/RoughIllustration';
 
 // ==========================================
 // 1. LIGHTWEIGHT SPA ROUTER
@@ -81,26 +82,26 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="flex flex-col min-h-screen bg-[#F4F3EF] text-black font-sans selection:bg-[#FFE600] selection:text-black">
       
       {/* ==========================================
           HEADER BAR
          ========================================== */}
-      <header className="sticky top-0 z-40 bg-white border-b border-slate-200/80 backdrop-blur-md bg-opacity-95 shadow-sm">
+      <header className="sticky top-0 z-40 bg-white border-b-4 border-black py-1">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2.5 hover:opacity-90 transition-opacity">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md shadow-indigo-200">
-              <Zap className="w-5 h-5 fill-indigo-100" />
+            <div className="w-10 h-10 border-2 border-black bg-[#FFE600] flex items-center justify-center text-black shadow-[2px_2px_0px_0px_#000000] rotate-[-3deg]">
+              <Zap className="w-5 h-5 fill-current" />
             </div>
-            <span className="font-bold text-xl tracking-tight text-slate-900">SaveTheFile</span>
+            <span className="font-extrabold text-2xl tracking-tight text-black font-display uppercase">SaveTheFile</span>
           </Link>
 
           <button 
             onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 rounded-xl text-slate-600 hover:text-indigo-600 hover:bg-slate-100/80 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+            className="p-2.5 border-3 border-black bg-[#A5F3FC] text-black font-black shadow-[3px_3px_0px_0px_#000000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000000] transition-all cursor-pointer rounded-xl focus:outline-none"
             aria-label="Buka Menu"
           >
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {menuOpen ? <X className="w-6 h-6 stroke-[3]" /> : <Menu className="w-6 h-6 stroke-[3]" />}
           </button>
         </div>
       </header>
@@ -125,53 +126,53 @@ export default function App() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-sm bg-white shadow-2xl flex flex-col border-l border-slate-100"
+              className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-sm bg-white flex flex-col border-l-4 border-black shadow-[-8px_0px_0px_0px_#000000]"
             >
-              <div className="p-5 border-b border-slate-100 flex items-center justify-between">
-                <span className="font-bold text-lg text-slate-900">Menu Navigasi</span>
+              <div className="p-5 border-b-4 border-black bg-[#FFE600] flex items-center justify-between">
+                <span className="font-extrabold text-xl text-black font-display uppercase tracking-tight">Menu Navigasi</span>
                 <button 
                   onClick={() => setMenuOpen(false)}
-                  className="p-2 rounded-lg text-slate-500 hover:text-indigo-600 hover:bg-slate-100 transition-colors"
+                  className="p-2 border-2 border-black bg-[#FFA8E8] text-black shadow-[2px_2px_0px_0px_#000000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#000000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000000] transition-all cursor-pointer rounded-lg"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-5 h-5 stroke-[3]" />
                 </button>
               </div>
 
               {/* Drawer Links */}
-              <div className="flex-1 overflow-y-auto p-5 space-y-2">
+              <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#F4F3EF]">
                 <Link 
                   to="/" 
                   onClick={() => setMenuOpen(false)}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+                  className={`flex items-center space-x-3 px-4 py-3 border-3 border-black rounded-xl transition-all ${
                     path === '/' 
-                      ? 'bg-indigo-50 text-indigo-700 font-medium' 
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-950'
+                      ? 'bg-[#FFE600] text-black font-bold shadow-[4px_4px_0px_0px_#000000]' 
+                      : 'bg-white text-black shadow-[2px_2px_0px_0px_#000000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#000000]'
                   }`}
                 >
-                  <Home className="w-5 h-5" />
-                  <span>Home</span>
+                  <Home className="w-5 h-5 stroke-[2.5]" />
+                  <span className="font-display font-extrabold">Home</span>
                 </Link>
 
                 <Link 
                   to="/converter" 
                   onClick={() => setMenuOpen(false)}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+                  className={`flex items-center space-x-3 px-4 py-3 border-3 border-black rounded-xl transition-all ${
                     path === '/converter' 
-                      ? 'bg-indigo-50 text-indigo-700 font-medium' 
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-950'
+                      ? 'bg-[#FFE600] text-black font-bold shadow-[4px_4px_0px_0px_#000000]' 
+                      : 'bg-white text-black shadow-[2px_2px_0px_0px_#000000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#000000]'
                   }`}
                 >
-                  <Zap className="w-5 h-5" />
-                  <span>Converter Hub</span>
+                  <Zap className="w-5 h-5 stroke-[2.5]" />
+                  <span className="font-display font-extrabold">Converter Hub</span>
                 </Link>
 
-                <div className="pt-2 border-t border-slate-100 mt-2">
+                <div className="pt-2 border-t-2 border-black mt-2">
                   <button 
                     onClick={() => setConverterDropdownOpen(!converterDropdownOpen)}
-                    className="flex items-center justify-between w-full px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-950 transition-colors"
+                    className="flex items-center justify-between w-full px-4 py-3 border-2 border-black bg-[#A5F3FC] text-black rounded-xl shadow-[2px_2px_0px_0px_#000000] transition-all hover:bg-cyan-200"
                   >
-                    <span className="font-semibold text-xs tracking-wider text-slate-400 uppercase">Daftar Converter</span>
-                    {converterDropdownOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    <span className="font-bold text-xs tracking-wider uppercase font-display">Daftar Converter</span>
+                    {converterDropdownOpen ? <ChevronUp className="w-4 h-4 stroke-[2.5]" /> : <ChevronDown className="w-4 h-4 stroke-[2.5]" />}
                   </button>
 
                   <AnimatePresence>
@@ -180,7 +181,7 @@ export default function App() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden pl-2 space-y-1 mt-1"
+                        className="overflow-hidden space-y-2 mt-3 pl-1"
                       >
                         {CONVERTERS.map((conv) => {
                           const Icon = conv.icon;
@@ -190,14 +191,14 @@ export default function App() {
                               key={conv.id}
                               to={conv.path}
                               onClick={() => setMenuOpen(false)}
-                              className={`flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm transition-all ${
+                              className={`flex items-center space-x-3 px-3 py-2 border-2 border-black rounded-lg text-sm transition-all ${
                                 isActive 
-                                  ? 'bg-indigo-50/60 text-indigo-600 font-medium' 
-                                  : 'text-slate-500 hover:bg-slate-50 hover:text-slate-950'
+                                  ? 'bg-[#86EFAC] text-black font-bold shadow-[2px_2px_0px_0px_#000000]' 
+                                  : 'bg-white text-black shadow-[1px_1px_0px_0px_#000000] hover:translate-y-[-1px] hover:shadow-[2px_2px_0px_0px_#000000]'
                               }`}
                             >
-                              <Icon className={`w-4 h-4 ${isActive ? 'text-indigo-600' : 'text-slate-400'}`} />
-                              <span>{conv.name}</span>
+                              <Icon className="w-4 h-4 stroke-[2.5]" />
+                              <span className="font-medium">{conv.name}</span>
                             </Link>
                           );
                         })}
@@ -207,11 +208,9 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="p-5 border-t border-slate-100 bg-slate-50">
-                <div className="flex items-center space-x-2.5 text-xs text-slate-500">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                  <span>100% Client-Side & Privat</span>
-                </div>
+              <div className="p-5 border-t-3 border-black bg-[#86EFAC] text-black font-bold flex items-center space-x-2.5 text-xs">
+                <ShieldCheck className="w-5 h-5 stroke-[2.5]" />
+                <span className="font-display font-extrabold uppercase tracking-wider">100% Client-Side & Privat</span>
               </div>
             </motion.div>
           </>
@@ -282,86 +281,125 @@ export default function App() {
 // PAGE: HOME PAGE
 // ============================================================================
 function HomePage({ navigateTo }: { navigateTo: (to: string) => void }) {
+  const getFlatColor = (id: string) => {
+    switch(id) {
+      case 'documents': return 'bg-[#FFE600]'; // Yellow
+      case 'images': return 'bg-[#86EFAC]'; // Green
+      case 'video': return 'bg-[#FFA8E8]'; // Pink
+      case 'audio': return 'bg-[#A5F3FC]'; // Cyan
+      case 'spreadsheets': return 'bg-[#FFD0A3]'; // Peach
+      case 'slides': return 'bg-[#FFE600]';
+      case 'e-books': return 'bg-[#FFA8E8]';
+      case 'archives': return 'bg-[#86EFAC]';
+      case 'vector': return 'bg-[#A5F3FC]';
+      case 'cad': return 'bg-[#FFD0A3]';
+      case 'fonts': return 'bg-[#FFE600]';
+      default: return 'bg-[#FFE600]';
+    }
+  };
+
   return (
     <div className="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-16">
       
       {/* Hero Section */}
-      <section className="text-center space-y-6 max-w-3xl mx-auto py-6">
-        <motion.div 
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold"
-        >
-          <ShieldCheck className="w-3.5 h-3.5" />
-          <span>Konverter File Offline & 100% Privat</span>
-        </motion.div>
-
-        <motion.h1 
-          initial={{ y: 15, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.1 }}
-          className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight"
-        >
-          Konversi Apapun, <br className="hidden sm:block" />
-          <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">Langsung di Browser</span> Anda
-        </motion.h1>
-
-        <motion.p 
-          initial={{ y: 15, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-lg text-slate-600 max-w-2xl mx-auto"
-        >
-          SaveTheFile adalah toolkit konverter file bertenaga tinggi yang memproses dokumen, gambar, audio, presentasi, dan font secara lokal tanpa upload ke server mana pun. Cepat, aman, dan tanpa batasan bandwidth.
-        </motion.p>
-
-        <motion.div 
-          initial={{ y: 15, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="flex justify-center"
-        >
-          <button 
-            onClick={() => navigateTo('/converter')}
-            className="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-medium shadow-lg shadow-indigo-200 transition-all transform hover:-translate-y-0.5"
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center py-6">
+        <div className="lg:col-span-7 space-y-6 text-left">
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="inline-flex items-center space-x-2 px-4 py-2 border-3 border-black bg-[#86EFAC] text-black text-xs font-black uppercase shadow-[2px_2px_0px_0px_#000000]"
           >
-            <span>Mulai Konversi</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+            <ShieldCheck className="w-4 h-4 stroke-[3]" />
+            <span className="font-display font-extrabold tracking-wider">Lokal & 100% Privat</span>
+          </motion.div>
+
+          <motion.h1 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-black leading-[1.1] font-display uppercase"
+          >
+            Konversi File <br />
+            <span className="bg-[#FFE600] border-3 border-black px-3 py-1 inline-block rotate-[-1.5deg] shadow-[5px_5px_0px_0px_#000000] mt-2 mb-1">
+              Lokal &amp; Instan
+            </span>
+          </motion.h1>
+
+          <motion.p 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-lg text-black font-semibold max-w-2xl leading-relaxed bg-white border-3 border-black p-5 shadow-[4px_4px_0px_0px_#000000]"
+          >
+            SaveTheFile memproses seluruh dokumen, gambar, audio, presentasi, dan font secara lokal langsung di dalam browser Anda. Tidak ada data yang diunggah ke server eksternal mana pun. Privasi total dengan performa kilat.
+          </motion.p>
+
+          <motion.div 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-wrap gap-4"
+          >
+            <button 
+              onClick={() => navigateTo('/converter')}
+              className="inline-flex items-center space-x-2 px-8 py-4.5 border-4 border-black bg-[#FFE600] text-black font-black uppercase font-display tracking-wider shadow-[6px_6px_0px_0px_#000000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_0px_#000000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_0px_#000000] transition-all cursor-pointer text-base rounded-none"
+            >
+              <span>Jelajahi Hub Konverter</span>
+              <ArrowRight className="w-5 h-5 stroke-[3]" />
+            </button>
+          </motion.div>
+        </div>
+
+        {/* Hand-drawn Sketch Illustration using roughjs */}
+        <motion.div 
+          initial={{ x: 40, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ type: 'spring', damping: 20, stiffness: 100, delay: 0.15 }}
+          className="lg:col-span-5"
+        >
+          <RoughIllustration />
         </motion.div>
       </section>
 
       {/* Grid of Features / Converters */}
-      <section className="space-y-6">
-        <div className="text-center max-w-xl mx-auto space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Pilih Tipe Konverter</h2>
-          <p className="text-slate-500 text-sm">Kami menyediakan 11 modul spesifik yang diproduksi untuk memproses file Anda secara khusus.</p>
+      <section className="space-y-8 pt-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-4 border-black pb-4">
+          <div className="space-y-1">
+            <h2 className="text-3xl font-black uppercase font-display text-black">Pilih Modul Konversi</h2>
+            <p className="text-black font-semibold text-sm">Toolkit pengolah file offline instan dan aman.</p>
+          </div>
+          <div className="bg-[#FFA8E8] border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-[2px_2px_0px_0px_#000000]">
+            11 Modul Aktif
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {CONVERTERS.map((conv, idx) => {
             const Icon = conv.icon;
+            const flatColor = getFlatColor(conv.id);
             return (
               <motion.div
                 key={conv.id}
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.05 * idx }}
+                transition={{ delay: 0.04 * idx }}
                 onClick={() => navigateTo(conv.path)}
-                className="group relative bg-white border border-slate-200/80 rounded-2xl p-6 hover:shadow-xl hover:shadow-slate-100 hover:border-indigo-500/20 transition-all cursor-pointer flex flex-col justify-between"
+                className="group relative bg-white border-3 border-black p-6 shadow-[5px_5px_0px_0px_#000000] hover:translate-x-[-3px] hover:translate-y-[-3px] hover:shadow-[8px_8px_0px_0px_#000000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_0px_#000000] transition-all cursor-pointer flex flex-col justify-between min-h-[220px]"
               >
                 <div className="space-y-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-tr ${conv.color} flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform`}>
-                    <Icon className="w-6 h-6" />
+                  <div className={`w-12 h-12 border-3 border-black ${flatColor} flex items-center justify-center text-black shadow-[3px_3px_0px_0px_#000000] group-hover:rotate-[-6deg] transition-transform`}>
+                    <Icon className="w-6 h-6 stroke-[2.5]" />
                   </div>
-                  <div className="space-y-1">
-                    <h3 className="font-bold text-lg text-slate-900 group-hover:text-indigo-600 transition-colors">{conv.name}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">{conv.desc}</p>
+                  <div className="space-y-1.5">
+                    <h3 className="font-extrabold text-xl text-black font-display uppercase tracking-tight">{conv.name}</h3>
+                    <p className="text-black font-medium text-xs leading-relaxed opacity-85">{conv.desc}</p>
                   </div>
                 </div>
-                <div className="mt-5 pt-4 border-t border-slate-50 flex items-center text-indigo-600 font-medium text-xs space-x-1 group-hover:translate-x-1 transition-transform">
+                <div className="mt-5 pt-3 border-t-2 border-black flex items-center justify-between text-black font-black text-xs uppercase tracking-wider">
                   <span>Buka Konverter</span>
-                  <ArrowRight className="w-3 h-3" />
+                  <div className="w-6 h-6 border-2 border-black bg-white flex items-center justify-center group-hover:bg-[#FFE600] group-hover:translate-x-1 transition-all shadow-[1px_1px_0px_0px_#000000]">
+                    <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
+                  </div>
                 </div>
               </motion.div>
             );
@@ -378,61 +416,86 @@ function HomePage({ navigateTo }: { navigateTo: (to: string) => void }) {
 function ConverterHubPage({ navigateTo }: { navigateTo: (to: string) => void }) {
   const [search, setSearch] = useState('');
 
+  const getFlatColor = (id: string) => {
+    switch(id) {
+      case 'documents': return 'bg-[#FFE600]'; // Yellow
+      case 'images': return 'bg-[#86EFAC]'; // Green
+      case 'video': return 'bg-[#FFA8E8]'; // Pink
+      case 'audio': return 'bg-[#A5F3FC]'; // Cyan
+      case 'spreadsheets': return 'bg-[#FFD0A3]'; // Peach
+      case 'slides': return 'bg-[#FFE600]';
+      case 'e-books': return 'bg-[#FFA8E8]';
+      case 'archives': return 'bg-[#86EFAC]';
+      case 'vector': return 'bg-[#A5F3FC]';
+      case 'cad': return 'bg-[#FFD0A3]';
+      case 'fonts': return 'bg-[#FFE600]';
+      default: return 'bg-[#FFE600]';
+    }
+  };
+
   const filteredConverters = CONVERTERS.filter(conv => 
     conv.name.toLowerCase().includes(search.toLowerCase()) || 
     conv.desc.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div className="flex-1 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-8">
-      <div className="text-center space-y-4 max-w-2xl mx-auto">
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">Converter Hub</h1>
-        <p className="text-slate-500">Cari dan pilih jenis modul konversi file spesifik yang Anda butuhkan di bawah.</p>
+    <div className="flex-1 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-10">
+      <div className="text-center space-y-4 max-w-2xl mx-auto bg-white border-4 border-black p-8 shadow-[8px_8px_0px_0px_#000000]">
+        <h1 className="text-4xl font-black uppercase font-display text-black tracking-tight">Converter Hub</h1>
+        <p className="text-black font-semibold text-sm">Cari dan pilih jenis modul konversi file spesifik yang Anda butuhkan di bawah.</p>
         
         {/* Search bar */}
         <div className="relative max-w-md mx-auto mt-6">
-          <Search className="absolute left-3.5 top-3.5 w-5 h-5 text-slate-400" />
+          <Search className="absolute left-4 top-4 w-5 h-5 text-black stroke-[3]" />
           <input
             type="text"
             placeholder="Cari jenis file... (e.g., pdf, image, wav)"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+            className="w-full pl-12 pr-4 py-3.5 border-3 border-black bg-[#F4F3EF] text-black font-bold placeholder-black/50 shadow-[3px_3px_0px_0px_#000000] focus:bg-white focus:shadow-[5px_5px_0px_0px_#000000] transition-all rounded-none outline-none"
           />
         </div>
       </div>
 
-      <div className="space-y-4 pt-4">
-        <h2 className="text-xl font-bold text-slate-800">
-          {search ? `Hasil Pencarian (${filteredConverters.length})` : 'Semua Modul Konverter'}
-        </h2>
+      <div className="space-y-6 pt-4">
+        <div className="flex items-center justify-between border-b-4 border-black pb-3">
+          <h2 className="text-2xl font-black uppercase font-display text-black">
+            {search ? `Hasil Pencarian (${filteredConverters.length})` : 'Semua Modul Konverter'}
+          </h2>
+          <span className="bg-[#FFE600] border-2 border-black px-2.5 py-0.5 text-xs font-black uppercase shadow-[2px_2px_0px_0px_#000000]">
+            Pencarian Cepat
+          </span>
+        </div>
         
         {filteredConverters.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredConverters.map((conv) => {
               const Icon = conv.icon;
+              const flatColor = getFlatColor(conv.id);
               return (
                 <div
                   key={conv.id}
                   onClick={() => navigateTo(conv.path)}
-                  className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-lg transition-all cursor-pointer flex items-start space-x-4 hover:border-indigo-500/20"
+                  className="bg-white border-3 border-black p-5 shadow-[5px_5px_0px_0px_#000000] hover:translate-x-[-3px] hover:translate-y-[-3px] hover:shadow-[7px_7px_0px_0px_#000000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000000] transition-all cursor-pointer flex items-start space-x-4"
                 >
-                  <div className={`w-10 h-10 shrink-0 rounded-lg bg-gradient-to-tr ${conv.color} flex items-center justify-center text-white`}>
-                    <Icon className="w-5 h-5" />
+                  <div className={`w-12 h-12 shrink-0 border-3 border-black ${flatColor} flex items-center justify-center text-black shadow-[2px_2px_0px_0px_#000000]`}>
+                    <Icon className="w-6 h-6 stroke-[2.5]" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="font-bold text-slate-900 text-base">{conv.name}</h3>
-                    <p className="text-slate-500 text-xs leading-relaxed">{conv.desc}</p>
+                    <h3 className="font-extrabold text-lg font-display uppercase tracking-tight text-black">{conv.name}</h3>
+                    <p className="text-black/80 font-medium text-xs leading-relaxed">{conv.desc}</p>
                   </div>
                 </div>
               );
             })}
           </div>
         ) : (
-          <div className="bg-white border border-slate-100 rounded-xl p-10 text-center space-y-2">
-            <HelpCircle className="w-8 h-8 text-slate-300 mx-auto" />
-            <p className="font-medium text-slate-600">Modul tidak ditemukan</p>
-            <p className="text-xs text-slate-400">Silakan masukkan kata kunci pencarian lainnya.</p>
+          <div className="bg-white border-3 border-black p-12 text-center space-y-4 shadow-[6px_6px_0px_0px_#000000]">
+            <HelpCircle className="w-12 h-12 text-black stroke-[2.5] mx-auto" />
+            <div className="space-y-1">
+              <p className="font-black text-xl uppercase font-display text-black">Modul tidak ditemukan</p>
+              <p className="text-xs text-black font-semibold">Silakan masukkan kata kunci pencarian lainnya.</p>
+            </div>
           </div>
         )}
       </div>

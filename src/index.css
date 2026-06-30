@@ -1,17 +1,158 @@
+@import "@fontsource/space-grotesk/index.css";
+@import "@fontsource/syne/index.css";
 @import "tailwindcss";
 
-/* Custom scrollbars and transition defaults */
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* ============================================================================
+   GLOBAL NEO BRUTALIST BRAND SYSTEM
+   ============================================================================ */
+
+body {
+  background-color: #f4f3ef !important; /* Retro cream paper background */
+  color: #000000 !important;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+/* Apply display font to all headings */
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: "Syne", sans-serif !important;
+  font-weight: 800 !important;
+  color: #000000 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Custom scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 12px;
+  height: 12px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #f4f3ef;
+  border-left: 3px solid #000000;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: #000000;
+  border: 3px solid #f4f3ef;
+  border-radius: 0px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #ffe600;
+}
+
+/* Selection color */
+::selection {
+  background-color: #ffe600 !important;
+  color: #000000 !important;
+}
+
+/* ============================================================================
+   UTILITY CLASSES FOR NEO BRUTALISM
+   ============================================================================ */
+
+.neo-box {
+  border: 3px solid #000000;
+  background-color: #ffffff;
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.neo-box-lg {
+  border: 4px solid #000000;
+  background-color: #ffffff;
+  box-shadow: 8px 8px 0px 0px #000000;
+}
+
+.neo-box-sm {
+  border: 2px solid #000000;
+  background-color: #ffffff;
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+
+.neo-btn-primary {
+  border: 3px solid #000000 !important;
+  background-color: #ffe600 !important;
+  color: #000000 !important;
+  box-shadow: 3px 3px 0px 0px #000000 !important;
+  font-family: "Syne", sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  transition: all 0.1s ease-in-out !important;
+}
+.neo-btn-primary:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px 0px #000000 !important;
+}
+.neo-btn-primary:active {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 1px 1px 0px 0px #000000 !important;
+}
+
+.neo-btn-secondary {
+  border: 3px solid #000000 !important;
+  background-color: #a5f3fc !important;
+  color: #000000 !important;
+  box-shadow: 3px 3px 0px 0px #000000 !important;
+  font-family: "Syne", sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  transition: all 0.1s ease-in-out !important;
+}
+.neo-btn-secondary:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px 0px #000000 !important;
+}
+.neo-btn-secondary:active {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 1px 1px 0px 0px #000000 !important;
+}
+
+.neo-btn-pink {
+  border: 3px solid #000000 !important;
+  background-color: #ffa8e8 !important;
+  color: #000000 !important;
+  box-shadow: 3px 3px 0px 0px #000000 !important;
+  font-family: "Syne", sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  transition: all 0.1s ease-in-out !important;
+}
+.neo-btn-pink:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px 0px #000000 !important;
+}
+.neo-btn-pink:active {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 1px 1px 0px 0px #000000 !important;
+}
+
+.neo-btn-green {
+  border: 3px solid #000000 !important;
+  background-color: #86efac !important;
+  color: #000000 !important;
+  box-shadow: 3px 3px 0px 0px #000000 !important;
+  font-family: "Syne", sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  transition: all 0.1s ease-in-out !important;
+}
+.neo-btn-green:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px 0px #000000 !important;
+}
+.neo-btn-green:active {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 1px 1px 0px 0px #000000 !important;
+}
+
+/* Pre / Code overriding */
+code, pre {
+  font-family: "JetBrains Mono", monospace !important;
+  background-color: #1a1a1a !important;
+  color: #86efac !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
 }
