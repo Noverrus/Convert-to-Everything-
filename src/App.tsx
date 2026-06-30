@@ -76,7 +76,7 @@ const TRANSLATIONS = {
     heroTitle1: "Konversi File",
     heroTitle2: "Lokal & Instan",
     heroDesc: "SaveTheFile memproses seluruh dokumen, gambar, audio, presentasi, dan font secara lokal langsung di dalam browser Anda. Tidak ada data yang diunggah ke server eksternal mana pun. Privasi total dengan performa kilat.",
-    exploreBtn: "Jelajahi Hub Konverter",
+    exploreBtn: "jelajahi hub converter",
     converterTitle: "Pilih Modul Konversi",
     converterSubtitle: "Toolkit pengolah file offline instan dan aman.",
     activeBadge: "11 Modul Aktif",
@@ -119,8 +119,7 @@ const TRANSLATIONS = {
     contactTitle: "Hubungi Kami",
     backToHome: "Kembali ke Beranda",
     copyright: "©2026 NoverrusDev\nHak cipta dilindungi undang-undang",
-    footerPitch: "Semua konversi file terjadi langsung di browser Anda menggunakan Web APIs, Canvas, AudioContext, dan Web Assembly lokal. File Anda aman dan tidak pernah dikirim ke server.",
-    footerPrivacyLabel: "Privasi Terjamin 100%"
+    footerPitch: "Semua konversi file terjadi langsung di browser Anda menggunakan Web APIs, Canvas, AudioContext, dan Web Assembly lokal. File Anda aman dan tidak pernah dikirim ke server."
   },
   en: {
     heroBadge: "Local & 100% Private",
@@ -169,9 +168,8 @@ const TRANSLATIONS = {
     termsTitle: "Terms of Service",
     contactTitle: "Contact Us",
     backToHome: "Back to Home",
-    copyright: "©2026 NoverrusDev\nHak cipta dilindungi undang-undang",
-    footerPitch: "All file conversions happen directly in your browser using local Web APIs, Canvas, AudioContext, and Web Assembly. Your files are safe and never sent to any server.",
-    footerPrivacyLabel: "100% Privacy Guaranteed"
+    copyright: "©2026 NoverrusDev\nAll rights reserved",
+    footerPitch: "All file conversions happen directly in your browser using local Web APIs, Canvas, AudioContext, and Web Assembly. Your files are safe and never sent to any server."
   }
 };
 
@@ -483,14 +481,10 @@ export default function App() {
           </div>
 
           {/* Copyright Section */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 max-w-xl mx-auto gap-4">
-            <div className="text-left sm:text-left text-xs whitespace-pre-line font-medium text-slate-400 leading-relaxed">
-              {"©2026 NoverrusDev\nHak cipta dilindungi undang-undang"}
+          <div className="pt-2 text-center text-xs text-slate-500 max-w-xl mx-auto">
+            <div className="whitespace-pre-line font-medium text-slate-400 leading-relaxed">
+              {TRANSLATIONS[lang].copyright}
             </div>
-            <span className="flex items-center space-x-1.5 shrink-0 bg-slate-800 px-3 py-1.5 border border-slate-700 text-slate-300">
-              <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              <span>{TRANSLATIONS[lang].footerPrivacyLabel}</span>
-            </span>
           </div>
         </div>
       </footer>
@@ -563,9 +557,10 @@ function HomePage({ lang, navigateTo }: { lang: 'id' | 'en'; navigateTo: (to: st
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="w-full max-w-2xl bg-white border-4 border-black p-8 shadow-[8px_8px_0px_0px_#000000] text-center space-y-4"
+          onClick={() => navigateTo('/converter')}
+          className="w-full max-w-2xl bg-white border-4 border-black p-8 shadow-[8px_8px_0px_0px_#000000] text-center space-y-4 cursor-pointer hover:translate-x-[-3px] hover:translate-y-[-3px] hover:shadow-[11px_11px_0px_0px_#000000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[4px_4px_0px_0px_#000000] transition-all select-none group"
         >
-          <div className="text-2xl sm:text-3xl font-black uppercase font-display text-black bg-[#A5F3FC] border-3 border-black py-3 px-6 inline-block rotate-[0.5deg] shadow-[4px_4px_0px_0px_#000000]">
+          <div className="text-2xl sm:text-3xl font-black uppercase font-display text-black bg-[#A5F3FC] border-3 border-black py-3 px-6 inline-block rotate-[0.5deg] shadow-[4px_4px_0px_0px_#000000] group-hover:bg-[#FFE600] group-hover:rotate-[-1deg] transition-all">
             Converter File
           </div>
           <p className="text-black font-semibold text-sm sm:text-base leading-relaxed pt-2">
